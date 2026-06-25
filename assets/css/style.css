@@ -1,0 +1,362 @@
+/* ===========================================================
+   TeamUP! — style.css
+   Estilos personalizados + overrides de Bootstrap 5.3.8
+   Enfoque MOBILE FIRST: las reglas base son para celular (320px+),
+   y los @media (min-width) van agregando/ajustando para
+   tablet (768px) y desktop (1024px+).
+   =========================================================== */
+
+/* -----------------------------------------------------------
+   1. DESIGN TOKENS (variables CSS)
+   Estos valores son los mismos que están documentados en la
+   Guía de Diseño Visual de la Fase 4. Si cambian la paleta allá,
+   cambien estas variables y se actualiza TODO el sitio.
+----------------------------------------------------------- */
+:root {
+  /* Color primario */
+  --color-accent: #00F0FF;
+  --color-accent-active: #00C2D1; /* versión más oscura para estado :active */
+
+  /* Secundarios / neutros oscuros */
+  --color-bg: #1A1033;
+  --color-bg-alt: #202124;
+  --color-panel: #24173B;
+  --color-border: #1C4060;
+
+  /* Texto */
+  --color-text: #FFFFFF;
+  --color-text-muted: #9E9FAC;
+
+  /* Estado */
+  --color-success: #22C55E;
+
+  /* Tipografía */
+  --font-display: 'Press Start 2P', cursive;
+  --font-heading: 'Anybody', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Espaciado base (escala simple de 8px) */
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+  --space-xl: 4rem;
+}
+
+/* -----------------------------------------------------------
+   2. RESET / BASE
+----------------------------------------------------------- */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+/* Foco visible para navegación con teclado (accesibilidad) */
+a:focus-visible,
+button:focus-visible,
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+/* -----------------------------------------------------------
+   3. HEADER / NAVBAR
+----------------------------------------------------------- */
+.site-header {
+  background-color: rgba(26, 16, 51, 0.95);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: box-shadow 0.2s ease;
+}
+
+/* Esta clase la agrega/quita script.js cuando hacés scroll */
+.site-header--scrolled {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.logo {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.navbar-nav .nav-link {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link:hover {
+  color: var(--color-accent);
+}
+
+/* El ícono de "hamburguesa" del menú mobile, en color claro */
+.navbar-toggler {
+  border-color: var(--color-border);
+}
+.navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* -----------------------------------------------------------
+   4. BOTONES (con sus 4 estados: default / hover / active / disabled)
+----------------------------------------------------------- */
+.btn {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  border-radius: 6px;
+  padding: 0.75rem 1.75rem;
+  transition: all 0.2s ease;
+}
+
+/* Botón primario — DEFAULT */
+.btn-accent {
+  background-color: var(--color-accent);
+  color: #0A0118; /* texto oscuro, ratio de contraste 12.79:1 ya verificado en la Fase 4 */
+  border: 2px solid var(--color-accent);
+}
+
+/* Botón primario — HOVER: glow sutil */
+.btn-accent:hover {
+  background-color: var(--color-accent);
+  color: #0A0118;
+  box-shadow: 0 0 16px rgba(0, 240, 255, 0.6);
+}
+
+/* Botón primario — ACTIVE: más oscuro/"hundido", sin glow (es el momento del click) */
+.btn-accent:active {
+  background-color: var(--color-accent-active);
+  border-color: var(--color-accent-active);
+  box-shadow: none;
+  transform: translateY(1px);
+}
+
+/* Botón primario — DISABLED: opacidad reducida, sin brillo */
+.btn-accent:disabled,
+.btn-accent.disabled {
+  background-color: var(--color-accent);
+  opacity: 0.4;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+/* Botón secundario (outline) */
+.btn-outline-accent {
+  background-color: transparent;
+  color: var(--color-accent);
+  border: 2px solid var(--color-accent);
+}
+
+.btn-outline-accent:hover {
+  background-color: rgba(0, 240, 255, 0.1);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.35);
+}
+
+.btn-outline-accent:active {
+  background-color: rgba(0, 240, 255, 0.18);
+  transform: translateY(1px);
+}
+
+/* -----------------------------------------------------------
+   5. HERO
+----------------------------------------------------------- */
+.hero {
+  padding: var(--space-xl) 0 var(--space-lg);
+}
+
+.badge-version {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-accent);
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  padding: 0.25rem 0.6rem;
+  margin-bottom: var(--space-md);
+}
+
+.hero-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 2rem;
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+}
+
+.hero-text {
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  max-width: 36rem;
+  margin-bottom: var(--space-lg);
+}
+
+/* Card flotante del jugador destacado */
+.player-card {
+  background-color: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: var(--space-lg);
+}
+
+.player-tag {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.badge-online {
+  color: var(--color-success);
+  font-size: 0.8rem;
+}
+
+.player-meta {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.player-rank {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  color: var(--color-accent);
+}
+.player-rank small {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+.player-stars {
+  color: var(--color-accent);
+}
+
+/* -----------------------------------------------------------
+   6. SECCIÓN DE 3 DESTACADOS (features)
+----------------------------------------------------------- */
+.features {
+  padding: var(--space-xl) 0;
+  background-color: var(--color-bg-alt);
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.6rem;
+}
+
+.section-subtitle {
+  color: var(--color-text-muted);
+  max-width: 32rem;
+}
+
+.feature-card {
+  background-color: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: var(--space-lg);
+  height: 100%;
+}
+
+.feature-icon {
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.feature-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: var(--space-sm);
+}
+
+.feature-text {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+/* -----------------------------------------------------------
+   7. CTA FINAL
+----------------------------------------------------------- */
+.cta-final {
+  padding: var(--space-xl) 0;
+  background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-panel) 100%);
+}
+
+.cta-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.8rem;
+  margin-bottom: var(--space-md);
+}
+
+.cta-text {
+  color: var(--color-text-muted);
+  max-width: 30rem;
+  margin: 0 auto var(--space-lg);
+}
+
+/* -----------------------------------------------------------
+   8. FOOTER
+----------------------------------------------------------- */
+.site-footer {
+  padding: var(--space-lg) 0;
+  border-top: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.footer-links a {
+  color: var(--color-text-muted);
+}
+.footer-links a:hover {
+  color: var(--color-accent);
+}
+
+/* ===========================================================
+   BREAKPOINTS — mobile first: de acá para abajo solo AGRANDAMOS
+   o reordenamos cosas para pantallas más grandes.
+   =========================================================== */
+
+/* TABLET: 768px en adelante */
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 2.6rem;
+  }
+  .section-title,
+  .cta-title {
+    font-size: 2rem;
+  }
+}
+
+/* DESKTOP: 1024px en adelante */
+@media (min-width: 1024px) {
+  .hero {
+    padding: 6rem 0 3rem;
+  }
+  .hero-title {
+    font-size: 3.2rem;
+  }
+  .section-title {
+    font-size: 2.4rem;
+  }
+  .cta-title {
+    font-size: 2.6rem;
+  }
+}
