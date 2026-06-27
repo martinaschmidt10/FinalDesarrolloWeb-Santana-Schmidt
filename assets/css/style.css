@@ -30,6 +30,7 @@
 
   /* Estado */
   --color-success: #22C55E;
+  --color-warning: #FFB020; /* estado "in-game" en Matchmaking */
   --color-error: #FF6B6B; /* verificado: 6.49:1 sobre --color-bg, supera el mínimo 4.5:1 */
 
   /* Tipografía */
@@ -1069,6 +1070,130 @@ button:focus-visible,
 }
 
 /* ===========================================================
+   12. MATCHMAKING
+   =========================================================== */
+
+.page-header-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+.page-header-row h1 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+.page-header-row p {
+  color: var(--color-text-muted);
+  max-width: 38rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+.page-header-row .btn {
+  flex-shrink: 0;
+}
+
+/* Grilla: 1 columna en mobile, 2 en tablet, 3 en desktop */
+.matchmaking-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+
+/* Badge "Match Score" en la esquina de la card */
+.score-badge {
+  text-align: right;
+}
+.score-badge .label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+.score-badge .value {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  color: var(--color-accent);
+}
+
+/* Estado del jugador: punto de color + texto */
+.player-status {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin: 0.3rem 0 1rem;
+}
+.status-dot-ind {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.status-dot-ind.is-available { background-color: var(--color-success); }
+.status-dot-ind.is-busy      { background-color: var(--color-warning); }
+.status-dot-ind.is-dnd       { background-color: var(--color-error); }
+
+/* Grilla 2x2 de stats (Role/Rank/Language/Reputation) */
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: var(--space-md);
+}
+.stat-grid .stat-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  margin-bottom: 0.15rem;
+}
+.stat-grid .stat-value {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.stars .filled { color: var(--color-accent); }
+.stars .empty { color: var(--color-border); }
+
+/* Card de cierre "Want Better Matches?" — no es un jugador, así que
+   no lleva esquineros ni el mismo fondo sólido, va con borde punteado */
+.cta-mini-card {
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 0.5rem;
+  color: var(--color-text-muted);
+}
+.cta-mini-card svg {
+  color: var(--color-accent);
+}
+.cta-mini-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  color: var(--color-text);
+  margin: 0;
+}
+.cta-mini-card p {
+  font-size: 0.8rem;
+  margin: 0;
+  max-width: 16rem;
+}
+
+/* ===========================================================
    BREAKPOINTS — mobile first: de acá para abajo solo AGRANDAMOS
    o reordenamos cosas para pantallas más grandes.
    =========================================================== */
@@ -1109,6 +1234,9 @@ button:focus-visible,
   .match-grid {
     grid-template-columns: 1fr 1fr;
   }
+  .matchmaking-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* DESKTOP: 1024px en adelante */
@@ -1134,5 +1262,8 @@ button:focus-visible,
     grid-template-columns: 1fr 320px;
     gap: var(--space-lg);
     align-items: start;
+  }
+  .matchmaking-grid {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
