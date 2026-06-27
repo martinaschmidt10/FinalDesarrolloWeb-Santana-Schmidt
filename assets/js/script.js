@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (formValido) {
         mostrarFeedback(feedback, 'success', '✓ Credenciales válidas. Bienvenido de nuevo, comandante.');
         // Esperamos un toque para que se llegue a leer el mensaje,
-        // y despues redirigimos al Dashboard.
+        // y recién ahí redirigimos al Dashboard.
         setTimeout(function () {
           window.location.href = 'dashboard.html';
         }, 1200);
@@ -235,6 +235,41 @@ document.addEventListener('DOMContentLoaded', function () {
     elemento.classList.remove('feedback-success', 'feedback-error');
     elemento.classList.add(tipo === 'success' ? 'feedback-success' : 'feedback-error');
     elemento.classList.add('show');
+  }
+
+
+  /* -----------------------------------------------------------
+     7. GRUPO DE BOTONES TIPO "TOGGLE" (tamaño de squad, página Squads)
+     Son botones comunes, no checkboxes ni radios — así que el
+     "está seleccionado" lo manejamos a mano con una clase.
+  ----------------------------------------------------------- */
+  document.querySelectorAll('.toggle-group').forEach(function (grupo) {
+    var botones = grupo.querySelectorAll('.toggle-btn');
+    botones.forEach(function (boton) {
+      boton.addEventListener('click', function () {
+        // Le sacamos "active" a todos los hermanos y se lo ponemos
+        // solo al que tocaste — por eso es "exclusivo" (uno a la vez).
+        botones.forEach(function (b) { b.classList.remove('active'); });
+        boton.classList.add('active');
+      });
+    });
+  });
+
+
+  /* -----------------------------------------------------------
+     8. FORMULARIO DE FILTROS (página Squads)
+     Frenamos el envío real del formulario (que recargaría la
+     página) porque TeamUP es frontend-only y no hay backend
+     que reciba estos filtros todavía.
+  ----------------------------------------------------------- */
+  var formFiltros = document.getElementById('formFiltrosSquads');
+  if (formFiltros) {
+    formFiltros.addEventListener('submit', function (evento) {
+      evento.preventDefault();
+      // En una versión con backend, acá se armaría la consulta
+      // con los valores de #selectGame, #selectRank y el toggle
+      // de tamaño activo, y se le pediría la lista filtrada al servidor.
+    });
   }
 
 });

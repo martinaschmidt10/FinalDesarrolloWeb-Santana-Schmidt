@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Squads — TeamUP!</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Anybody:wght@600;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER DE LA APP (compartido) ===================== -->
+  <header class="app-header">
+    <a href="../index.html" class="logo text-decoration-none">TeamUP<span class="text-accent">!</span></a>
+
+    <div class="app-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+      </svg>
+      <input type="text" placeholder="Find squads or players...">
+    </div>
+
+    <div class="app-header-actions">
+      <button class="icon-btn" aria-label="Notificaciones">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 1 0-12 0c0 4-2 5-2 5h16s-2-1-2-5"/>
+          <path d="M13.7 21a2 2 0 0 1-3.4 0"/>
+        </svg>
+      </button>
+      <a href="edit-profile.html" class="avatar-sm text-decoration-none" aria-label="Mi perfil">MS</a>
+    </div>
+  </header>
+
+  <div class="app-shell">
+
+    <!-- ===================== SIDEBAR (compartido) ===================== -->
+    <aside class="app-sidebar">
+      <nav aria-label="Navegación de la app">
+        <ul class="sidebar-nav">
+          <li>
+            <a href="dashboard.html" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="matchmaking.html" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/>
+                <path d="M5 8h14a2 2 0 0 1 2 2.5l-1.2 6A2 2 0 0 1 17.8 18H17l-2-2H9l-2 2h-.8a2 2 0 0 1-1.97-1.5l-1.2-6A2 2 0 0 1 5 8z"/>
+              </svg>
+              Matchmaking
+            </a>
+          </li>
+          <li>
+            <a href="squads.html" class="sidebar-link active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/>
+                <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14.5c2.8.3 5 2.5 5 5.5"/>
+              </svg>
+              Squads
+            </a>
+          </li>
+          <li>
+            <a href="messages.html" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              Messages
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ===================== CONTENIDO DE SQUADS ===================== -->
+    <main class="app-main">
+
+      <div class="page-header-row">
+        <div>
+          <h1>Find Your Squad</h1>
+        </div>
+      </div>
+
+      <!-- Filtros -->
+      <form class="filters-panel" id="formFiltrosSquads">
+        <div class="filter-group">
+          <label for="selectGame">Select Game</label>
+          <select id="selectGame" class="form-control-game">
+            <option>Counter Strike 2</option>
+            <option>Valorant</option>
+            <option>League of Legends</option>
+            <option>Apex Legends</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="selectRank">Rank Bracket</label>
+          <select id="selectRank" class="form-control-game">
+            <option>All Ranks</option>
+            <option>Bronze - Silver</option>
+            <option>Gold - Platinum</option>
+            <option>Diamond +</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Squad Size</label>
+          <div class="toggle-group" role="group" aria-label="Tamaño de squad">
+            <button type="button" class="toggle-btn" data-size="2v2">2v2</button>
+            <button type="button" class="toggle-btn active" data-size="5v5">5v5</button>
+            <button type="button" class="toggle-btn" data-size="all">All</button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-accent">Filter Results</button>
+      </form>
+
+      <div class="squads-grid">
+
+        <!-- Squad 1 -->
+        <article class="squad-card">
+          <div class="squad-card-header">
+            <h3>Neon Titans</h3>
+            <span class="tier-badge">Master III</span>
+          </div>
+          <p class="squad-game-sub">Counter Strike 2</p>
+
+          <div class="capacity-row">
+            <span class="capacity-label">Squad Capacity</span>
+            <div class="capacity-bar">
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment"></div>
+          </div>
+            </div>
+
+          <div class="online-row">
+            <div class="avatar-stack">
+              <div class="member-avatar">NT</div>
+              <div class="member-avatar">RX</div>
+              <div class="member-avatar">KZ</div>
+            </div>
+            <span class="online-text">3/5 Online Now</span>
+          </div>
+
+          <div class="squad-tags">
+            <span class="tag-pill">Competitive</span>
+            <span class="tag-pill">Microphone Required</span>
+          </div>
+
+          <div class="squad-actions">
+            <button type="button" class="btn btn-outline-accent">View Squad</button>
+            <button type="button" class="btn btn-accent">Apply to Join</button>
+          </div>
+        </article>
+
+        <!-- Squad 2 -->
+        <article class="squad-card">
+          <div class="squad-card-header">
+            <h3>Void Runners</h3>
+            <span class="tier-badge">Diamond I</span>
+          </div>
+          <p class="squad-game-sub">Counter Strike 2</p>
+
+          <div class="capacity-row">
+            <span class="capacity-label">Squad Capacity</span>
+            <div class="capacity-bar">
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment"></div>
+            <div class="capacity-segment"></div>
+          </div>
+            </div>
+
+          <div class="online-row">
+            <div class="avatar-stack">
+              <div class="member-avatar">VR</div>
+              <div class="member-avatar">LM</div>
+            </div>
+            <span class="online-text">2/4 Online Now</span>
+          </div>
+
+          <div class="squad-tags">
+            <span class="tag-pill">Chilled</span>
+            <span class="tag-pill">Late Night</span>
+          </div>
+
+          <div class="squad-actions">
+            <button type="button" class="btn btn-outline-accent">View Squad</button>
+            <button type="button" class="btn btn-accent">Apply to Join</button>
+          </div>
+        </article>
+
+        <!-- Squad 3 -->
+        <article class="squad-card">
+          <div class="squad-card-header">
+            <h3>Pixel Kings</h3>
+            <span class="tier-badge">Elite V</span>
+          </div>
+          <p class="squad-game-sub">Counter Strike 2</p>
+
+          <div class="capacity-row">
+            <span class="capacity-label">Squad Capacity</span>
+            <div class="capacity-bar">
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment filled"></div>
+          </div>
+            </div>
+
+          <div class="online-row">
+            <div class="avatar-stack">
+              <div class="member-avatar">PK</div>
+              <div class="member-avatar">JR</div>
+              <div class="member-avatar">OW</div>
+            </div>
+            <span class="online-text">5/5 Online Now</span>
+          </div>
+
+          <div class="squad-tags">
+            <span class="tag-pill">Tournament</span>
+            <span class="tag-pill">English Only</span>
+          </div>
+
+          <div class="squad-actions">
+            <button type="button" class="btn btn-outline-accent">View Squad</button>
+            <button type="button" class="btn btn-accent" disabled>Squad Full</button>
+          </div>
+        </article>
+
+        <!-- Squad 4 -->
+        <article class="squad-card">
+          <div class="squad-card-header">
+            <h3>Glitch Ops</h3>
+            <span class="tier-badge">Platinum I</span>
+          </div>
+          <p class="squad-game-sub">Counter Strike 2</p>
+
+          <div class="capacity-row">
+            <span class="capacity-label">Squad Capacity</span>
+            <div class="capacity-bar">
+            <div class="capacity-segment filled"></div>
+            <div class="capacity-segment"></div>
+            <div class="capacity-segment"></div>
+            <div class="capacity-segment"></div>
+            <div class="capacity-segment"></div>
+          </div>
+            </div>
+
+          <div class="online-row">
+            <div class="avatar-stack">
+              <div class="member-avatar">GO</div>
+            </div>
+            <span class="online-text">1/5 Online Now</span>
+          </div>
+
+          <div class="squad-tags">
+            <span class="tag-pill">Casual</span>
+            <span class="tag-pill">Daily Play</span>
+          </div>
+
+          <div class="squad-actions">
+            <button type="button" class="btn btn-outline-accent">View Squad</button>
+            <button type="button" class="btn btn-accent">Apply to Join</button>
+          </div>
+        </article>
+
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===================== FOOTER (compartido) ===================== -->
+  <footer class="site-footer">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+      <p class="mb-0">© <span id="anioActual"></span> TeamUP! Gaming. Todos los derechos reservados.</p>
+      <ul class="footer-links list-unstyled d-flex gap-4 mb-0">
+        <li><a href="terminos.html">Terms of Service</a></li>
+        <li><a href="privacidad.html">Privacy Policy</a></li>
+        <li><a href="soporte.html">Support</a></li>
+        <li><a href="cookies.html">Cookie Settings</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>
