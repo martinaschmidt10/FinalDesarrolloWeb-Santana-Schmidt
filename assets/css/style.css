@@ -21,7 +21,8 @@
   --color-bg: #1A1033;
   --color-bg-alt: #202124;
   --color-panel: #24173B;
-  --color-border: #1C4060;
+  --color-border: #3B494B;
+  --color-shell: #151D1E; /* header / sidebar / footer: más oscuro que el resto */
 
   /* Texto */
   --color-text: #FFFFFF;
@@ -42,6 +43,12 @@
   --space-md: 1rem;
   --space-lg: 2rem;
   --space-xl: 4rem;
+
+  /* Esquinas: escala chica a propósito, para un look más recto/táctico
+     en vez de las esquinas muy redondeadas de antes */
+  --radius-sm: 2px;  /* tags, badges chicos */
+  --radius-md: 3px;  /* botones, inputs, íconos */
+  --radius-lg: 4px;  /* cards y paneles grandes */
 }
 
 /* -----------------------------------------------------------
@@ -121,7 +128,7 @@ button:focus-visible,
   font-family: var(--font-heading);
   font-weight: 700;
   letter-spacing: 0.03em;
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   padding: 0.75rem 1.75rem;
   transition: all 0.2s ease;
 }
@@ -187,7 +194,7 @@ button:focus-visible,
   font-size: 0.7rem;
   color: var(--color-accent);
   border: 1px solid var(--color-border);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   padding: 0.25rem 0.6rem;
   margin-bottom: var(--space-md);
 }
@@ -209,9 +216,10 @@ button:focus-visible,
 
 /* Card flotante del jugador destacado */
 .player-card {
+  position: relative;
   background-color: var(--color-panel);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: var(--space-lg);
 }
 
@@ -266,9 +274,10 @@ button:focus-visible,
 }
 
 .feature-card {
+  position: relative;
   background-color: var(--color-panel);
   border: 1px solid var(--color-border);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   padding: var(--space-lg);
   height: 100%;
 }
@@ -316,6 +325,7 @@ button:focus-visible,
    8. FOOTER
 ----------------------------------------------------------- */
 .site-footer {
+  background-color: var(--color-shell);
   padding: var(--space-lg) 0;
   border-top: 1px solid var(--color-border);
   font-family: var(--font-mono);
@@ -331,7 +341,43 @@ button:focus-visible,
 }
 
 /* ===========================================================
-   9. PÁGINAS DE AUTENTICACIÓN (Login / Registro)
+   9. ESQUINEROS DIAGONALES (player-card, feature-card, match-card)
+   "Esquineros" cyan en diagonal — el detalle de marca que decora
+   las cards destacadas (jugador, feature, match). Son 2 elementos
+   chicos en forma de L, uno arriba-izquierda y otro abajo-derecha,
+   apoyados justo sobre el borde de la card.
+   =========================================================== */
+.player-card::before,
+.player-card::after,
+.feature-card::before,
+.feature-card::after,
+.match-card::before,
+.match-card::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+.player-card::before,
+.feature-card::before,
+.match-card::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--color-accent);
+  border-left: 2px solid var(--color-accent);
+}
+.player-card::after,
+.feature-card::after,
+.match-card::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--color-accent);
+  border-right: 2px solid var(--color-accent);
+}
+
+/* ===========================================================
+   10. PÁGINAS DE AUTENTICACIÓN (Login / Registro)
    =========================================================== */
 
 /* Header simple para Registro: solo logo + link, sin nav completo */
@@ -359,7 +405,7 @@ button:focus-visible,
 .auth-card {
   background-color: var(--color-panel);
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: var(--radius-lg);
   padding: var(--space-lg);
   width: 100%;
   max-width: 26rem;
@@ -422,7 +468,7 @@ button:focus-visible,
   width: 100%;
   background-color: var(--color-bg);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   padding: 0.65rem 0.9rem;
   color: var(--color-text);
   font-family: var(--font-body);
@@ -488,7 +534,7 @@ button:focus-visible,
 /* Banner de feedback (éxito o error general del formulario) */
 .form-feedback {
   display: none;
-  border-radius: 8px;
+  border-radius: var(--radius-md);
   padding: 0.75rem 1rem;
   font-size: 0.9rem;
   margin-bottom: var(--space-md);
@@ -533,7 +579,7 @@ button:focus-visible,
   justify-content: center;
   background-color: var(--color-bg-alt);
   border: 1px solid var(--color-border);
-  border-radius: 6px;
+  border-radius: var(--radius-md);
   color: var(--color-text-muted);
 }
 .social-btn:hover {
@@ -576,6 +622,453 @@ button:focus-visible,
 }
 
 /* ===========================================================
+   11. APP SHELL — header + sidebar de las pantallas internas
+   (Dashboard, Matchmaking, Squads, Messages, Edit Profile).
+   Mobile-first: en celular el sidebar es una barra horizontal
+   de íconos arriba del contenido; en tablet/desktop (768px+)
+   se convierte en columna vertical fija a la izquierda.
+   =========================================================== */
+
+.app-header {
+  background-color: var(--color-shell);
+  border-bottom: 1px solid rgba(0, 240, 255, 0.45);
+  box-shadow: 0 1px 18px rgba(0, 240, 255, 0.25);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.app-search {
+  flex: 1;
+  position: relative;
+  max-width: 420px;
+}
+.app-search svg {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+.app-search input {
+  width: 100%;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.5rem 0.75rem 0.5rem 2.2rem;
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+}
+.app-search input::placeholder {
+  color: var(--color-text-muted);
+}
+.app-search input:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.app-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-left: auto;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  color: var(--color-text-muted);
+  width: 2.2rem;
+  height: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+.icon-btn:hover {
+  color: var(--color-accent);
+  background-color: var(--color-bg-alt);
+}
+
+.avatar-sm {
+  width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-panel);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* -- Contenedor general: sidebar + main -- */
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 60px);
+}
+
+.app-sidebar {
+  background-color: var(--color-shell);
+  border-bottom: 1px solid var(--color-border);
+}
+.sidebar-nav {
+  display: flex;
+  overflow-x: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem;
+  gap: 0.25rem;
+}
+.sidebar-nav li {
+  flex-shrink: 0;
+}
+.sidebar-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.9rem;
+  border-radius: var(--radius-md);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-right: 3px solid transparent; /* la "barrita" vive en este borde */
+}
+.sidebar-link svg {
+  width: 18px;
+  height: 18px;
+}
+/* Hover y seleccionada comparten el rectángulo cyan... */
+.sidebar-link.active,
+.sidebar-link:hover {
+  color: var(--color-accent);
+  background-color: rgba(0, 240, 255, 0.12);
+  border-color: rgba(0, 240, 255, 0.3);
+}
+/* ...pero la barrita marcada solo aparece en la seleccionada */
+.sidebar-link.active {
+  border-right-color: var(--color-accent);
+}
+
+.app-main {
+  flex: 1;
+  padding: var(--space-md);
+}
+
+/* -- Panel genérico (mismo estilo visual que .feature-card) -- */
+.panel {
+  background-color: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--space-md);
+  color: var(--color-accent);
+}
+.panel-header svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+.panel-title {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: var(--color-text);
+  margin: 0;
+}
+
+/* -- Tag pills (roles, estilos, ubicación) -- */
+.tag-pill {
+  display: inline-block;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.15rem 0.55rem;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* -- Banner de perfil (arriba del Dashboard) -- */
+.profile-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+.profile-info h1 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.5rem;
+  margin-bottom: 0.4rem;
+}
+.profile-tags {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+.profile-meta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* -- Grilla de jugadores recomendados / matches -- */
+.match-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+.match-card {
+  position: relative;
+  background-color: var(--color-panel);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-md);
+}
+.match-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.75rem;
+}
+.match-percent {
+  text-align: right;
+}
+.match-percent .value {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  color: var(--color-accent);
+  display: block;
+}
+.match-percent .label {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--color-text-muted);
+}
+.match-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  margin: 0.5rem 0 0.15rem;
+}
+.match-card .rank-line {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.6rem;
+}
+.match-card .tags-row {
+  display: flex;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.85rem;
+}
+.match-card-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.match-card-actions .btn {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+}
+.match-card-actions .icon-btn {
+  border: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+/* -- Invitaciones pendientes -- */
+.invite-tabs {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: var(--space-md);
+}
+.invite-tabs button {
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-md);
+}
+.invite-tabs button.active {
+  background-color: var(--color-accent);
+  color: #0A0118;
+  border-color: var(--color-accent);
+}
+.invite-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.invite-row:last-of-type {
+  border-bottom: none;
+}
+.invite-row .invite-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: block;
+}
+.invite-row .invite-time {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+}
+.invite-row-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.3rem;
+}
+.icon-btn-accept {
+  color: var(--color-success);
+}
+.icon-btn-decline {
+  color: var(--color-error);
+}
+.btn-text-link {
+  display: block;
+  text-align: center;
+  width: 100%;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.5rem;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  margin-top: 0.5rem;
+}
+.btn-text-link:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+/* -- Mi Squad -- */
+.squad-name {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+.squad-status {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-success);
+  margin-bottom: var(--space-md);
+}
+.squad-member-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.6rem;
+}
+.member-avatar {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+.squad-member-row .member-name {
+  font-size: 0.85rem;
+  flex: 1;
+}
+.squad-member-row .member-level {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+}
+.squad-member-row.is-empty {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+.squad-member-row.is-empty .member-avatar {
+  border-style: dashed;
+}
+
+/* -- Recent Wins -- */
+.win-row {
+  border-left: 3px solid var(--color-accent);
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-bg);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+.win-row .win-title {
+  font-weight: 700;
+  font-size: 0.8rem;
+  display: block;
+}
+.win-row .win-meta {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+}
+.win-row .win-xp {
+  color: var(--color-accent);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* ===========================================================
    BREAKPOINTS — mobile first: de acá para abajo solo AGRANDAMOS
    o reordenamos cosas para pantallas más grandes.
    =========================================================== */
@@ -588,6 +1081,33 @@ button:focus-visible,
   .section-title,
   .cta-title {
     font-size: 2rem;
+  }
+
+  /* El sidebar pasa de barra horizontal a columna vertical fija */
+  .app-shell {
+    flex-direction: row;
+  }
+  .app-sidebar {
+    width: 210px;
+    flex-shrink: 0;
+    border-bottom: none;
+    border-right: 1px solid var(--color-border);
+  }
+  .sidebar-nav {
+    flex-direction: column;
+    padding: var(--space-md) 0.6rem;
+  }
+  .sidebar-link {
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 0.75rem;
+    padding: 0.6rem 0.8rem;
+  }
+  .app-main {
+    padding: var(--space-lg);
+  }
+  .match-grid {
+    grid-template-columns: 1fr 1fr;
   }
 }
 
@@ -604,5 +1124,15 @@ button:focus-visible,
   }
   .cta-title {
     font-size: 2.6rem;
+  }
+
+  .app-sidebar {
+    width: 240px;
+  }
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: var(--space-lg);
+    align-items: start;
   }
 }

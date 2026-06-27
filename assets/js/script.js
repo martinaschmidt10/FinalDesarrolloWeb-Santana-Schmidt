@@ -108,6 +108,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (formValido) {
         mostrarFeedback(feedback, 'success', '✓ Credenciales válidas. Bienvenido de nuevo, comandante.');
+        // Esperamos un toque para que se llegue a leer el mensaje,
+        // y despues redirigimos al Dashboard.
+        setTimeout(function () {
+          window.location.href = 'dashboard.html';
+        }, 1200);
       } else {
         mostrarFeedback(feedback, 'error', 'Revisá los campos marcados antes de continuar.');
       }
