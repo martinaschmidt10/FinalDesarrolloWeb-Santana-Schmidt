@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Messages — TeamUP!</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Anybody:wght@600;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER DE LA APP (compartido) ===================== -->
+  <header class="app-header">
+    <a href="../index.html" class="logo text-decoration-none">TeamUP<span class="text-accent">!</span></a>
+
+    <div class="app-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+      </svg>
+      <input type="text" placeholder="Find squads or players...">
+    </div>
+
+    <div class="app-header-actions">
+      <button class="icon-btn" aria-label="Notificaciones">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 1 0-12 0c0 4-2 5-2 5h16s-2-1-2-5"/>
+          <path d="M13.7 21a2 2 0 0 1-3.4 0"/>
+        </svg>
+      </button>
+      <a href="edit-profile.html" class="avatar-sm text-decoration-none" aria-label="Mi perfil">MS</a>
+    </div>
+  </header>
+
+  <div class="app-shell">
+
+    <!-- ===================== SIDEBAR (compartido) ===================== -->
+    <aside class="app-sidebar">
+      <nav aria-label="Navegación de la app">
+        <ul class="sidebar-nav">
+          <li>
+            <a href="dashboard.html" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="matchmaking.html" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/>
+                <path d="M5 8h14a2 2 0 0 1 2 2.5l-1.2 6A2 2 0 0 1 17.8 18H17l-2-2H9l-2 2h-.8a2 2 0 0 1-1.97-1.5l-1.2-6A2 2 0 0 1 5 8z"/>
+              </svg>
+              Matchmaking
+            </a>
+          </li>
+          <li>
+            <a href="squads.html" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/>
+                <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14.5c2.8.3 5 2.5 5 5.5"/>
+              </svg>
+              Squads
+            </a>
+          </li>
+          <li>
+            <a href="messages.html" class="sidebar-link active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              Messages
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ===================== CONTENIDO DE MESSAGES ===================== -->
+    <main class="app-main messages-main">
+
+      <div class="messages-layout">
+
+        <!-- Columna 1: lista de conversaciones -->
+        <aside class="conversations-panel">
+          <div class="app-search conv-search">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+            </svg>
+            <input type="text" placeholder="Search direct messages...">
+          </div>
+
+          <ul class="conv-list">
+            <li class="conv-item active" data-conv="neon_raider">
+              <div class="member-avatar">NR</div>
+              <div class="conv-info">
+                <span class="conv-name">Neon_Raider <span class="status-dot-ind is-available"></span></span>
+                <span class="conv-preview">Let's queue for the finals...</span>
+              </div>
+              <span class="conv-time">2m</span>
+            </li>
+            <li class="conv-item" data-conv="valkyrie">
+              <div class="member-avatar">V1</div>
+              <div class="conv-info">
+                <span class="conv-name">Valkyrie_01</span>
+                <span class="conv-preview">Ggs last night, that snipe was...</span>
+              </div>
+              <span class="conv-time">1h</span>
+            </li>
+            <li class="conv-item" data-conv="elite4">
+              <div class="member-avatar">E4</div>
+              <div class="conv-info">
+                <span class="conv-name">Squad: Elite_4 <span class="status-dot-ind is-available"></span></span>
+                <span class="conv-preview">Nova: Practice at 8PM?</span>
+              </div>
+              <span class="conv-time">3h</span>
+            </li>
+            <li class="conv-item" data-conv="cyberdruid">
+              <div class="member-avatar">CD</div>
+              <div class="conv-info">
+                <span class="conv-name">Cyber_Druid</span>
+                <span class="conv-preview">Check the new patch notes...</span>
+              </div>
+              <span class="conv-time">Yesterday</span>
+            </li>
+          </ul>
+        </aside>
+
+        <!-- Columna 2: chat activo -->
+        <section class="chat-window">
+
+          <div class="chat-header">
+            <div class="chat-header-info">
+              <div class="member-avatar">NR</div>
+              <div>
+                <h2>Neon_Raider</h2>
+                <span class="status-pill is-available"><span class="status-dot-ind is-available"></span> Online</span>
+              </div>
+            </div>
+            <div class="chat-header-actions">
+              <button class="icon-btn" aria-label="Videollamada">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/>
+                </svg>
+              </button>
+              <button class="icon-btn" aria-label="Llamada">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.9a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.5c.9.3 1.9.6 2.9.7a2 2 0 0 1 1.7 2z"/>
+                </svg>
+              </button>
+              <button class="icon-btn" aria-label="Ver perfil">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="chat-messages" id="chatMessages">
+            <div class="chat-date-divider">Today · 14:22</div>
+
+            <div class="msg-row msg-in">
+              <div class="member-avatar">NR</div>
+              <div class="msg-bubble">
+                <div class="msg-meta">Neon_Raider · 14:24</div>
+                <p>Yo, are you ready for the Regional Qualifiers tonight? We need one more carry to secure the seed.</p>
+              </div>
+            </div>
+
+            <div class="msg-row msg-out">
+              <div class="msg-bubble">
+                <div class="msg-meta">14:26 · Pro_Gamer</div>
+                <p>I'm in. Just finished warmups. My latency is sitting at a steady 12ms. Who's our third?</p>
+              </div>
+            </div>
+
+            <div class="msg-row msg-in">
+              <div class="member-avatar">NR</div>
+              <div class="msg-bubble">
+                <div class="msg-meta">Neon_Raider · 14:27</div>
+                <p>Valkyrie_01 might join us. She just hit Diamond II last night.</p>
+                <a href="#" class="msg-attachment">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>
+                  </svg>
+                  <span class="attachment-info">
+                    <strong>Vortex_Zone_Map.png</strong>
+                    <small>1.4 MB · PNG</small>
+                  </span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 3v12M7 11l5 5 5-5M5 21h14"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
+
+            <div class="msg-row msg-out">
+              <div class="msg-bubble">
+                <div class="msg-meta">14:29 · Pro_Gamer</div>
+                <p>Perfect. Let's link up in the lobby at 19:00 sharp. No lag, no excuses.</p>
+              </div>
+            </div>
+          </div>
+
+          <form class="chat-input-row" id="formMensaje">
+            <button type="button" class="icon-btn" aria-label="Insertar emoji">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>
+              </svg>
+            </button>
+            <button type="button" class="icon-btn" aria-label="Adjuntar archivo">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.5l-8.5 8.5a4 4 0 0 1-5.7-5.7L15 7"/>
+              </svg>
+            </button>
+            <input type="text" id="inputMensaje" placeholder="Message @Neon_Raider" aria-label="Escribir mensaje">
+            <button type="submit" class="btn btn-accent">Send</button>
+          </form>
+
+        </section>
+
+        <!-- Columna 3: perfil del contacto (solo desktop, 1024px+) -->
+        <aside class="chat-profile-panel">
+          <div class="avatar-lg" style="margin:0 auto;">NR</div>
+          <h3>Neon_Raider</h3>
+          <p class="profile-meta">Gamer ID: #9928-VX</p>
+
+          <div class="profile-actions-row">
+            <button class="icon-btn" aria-label="Silenciar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 5L6 9H2v6h4l5 4V5z"/><path d="M16 9a3 3 0 0 1 0 6"/>
+              </svg>
+            </button>
+            <button class="icon-btn" aria-label="Bloquear">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/><path d="M4.9 4.9l14.2 14.2"/>
+              </svg>
+            </button>
+            <button class="icon-btn" aria-label="Reportar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 21V4l16 6-7 2 7 2-16 5"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="panel-header" style="margin-top:1.5rem;">
+            <h4 class="panel-title sm-title">Shared Media</h4>
+          </div>
+          <div class="shared-media-grid">
+            <div class="media-thumb">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <div class="media-thumb">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <a href="#" class="media-thumb more">+14 More</a>
+          </div>
+
+          <div class="panel-header" style="margin-top:1.5rem;">
+            <h4 class="panel-title sm-title">Shared Squads</h4>
+          </div>
+          <ul class="shared-squads-list">
+            <li>
+              <span class="member-avatar">NK</span>
+              Neon_Knights
+            </li>
+            <li>
+              <span class="member-avatar">CV</span>
+              Cyber_Void
+            </li>
+          </ul>
+        </aside>
+
+      </div>
+
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>

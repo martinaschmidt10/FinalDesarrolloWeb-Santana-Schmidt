@@ -272,4 +272,67 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+
+  /* -----------------------------------------------------------
+     9. LISTA DE CONVERSACIONES (página Messages)
+     Mismo patrón "exclusivo" que el toggle de Squad Size.
+  ----------------------------------------------------------- */
+  var conversaciones = document.querySelectorAll('.conv-item');
+  if (conversaciones.length) {
+    conversaciones.forEach(function (item) {
+      item.addEventListener('click', function () {
+        conversaciones.forEach(function (c) { c.classList.remove('active'); });
+        item.classList.add('active');
+        // Nota: esto solo cambia visualmente cuál está seleccionada.
+        // Para que también cambien los mensajes mostrados, habría que
+        // tener guardada la conversación de cada contacto y volver a
+        // dibujar #chatMessages con esos datos — lo dejamos afuera
+        // a propósito para no inventar contenido que no estaba en el diseño.
+      });
+    });
+  }
+
+
+  /* -----------------------------------------------------------
+     10. ENVIAR MENSAJE (página Messages)
+     Manipulación del DOM real: creamos un mensaje nuevo y lo
+     insertamos en la conversación, en vez de solo simular el envío.
+  ----------------------------------------------------------- */
+  var formMensaje = document.getElementById('formMensaje');
+  var inputMensaje = document.getElementById('inputMensaje');
+  var contenedorChat = document.getElementById('chatMessages');
+
+  if (formMensaje && inputMensaje && contenedorChat) {
+    formMensaje.addEventListener('submit', function (evento) {
+      evento.preventDefault();
+
+      var texto = inputMensaje.value.trim();
+      if (texto === '') return; // no mandamos mensajes vacíos
+
+      // Armamos la hora actual en formato HH:MM
+      var ahora = new Date();
+      var hora = ahora.getHours().toString().padStart(2, '0') + ':' +
+        ahora.getMinutes().toString().padStart(2, '0');
+
+      // Creamos el HTML del mensaje nuevo (igual estructura que los que
+      // ya están escritos a mano en el HTML)
+      var fila = document.createElement('div');
+      fila.className = 'msg-row msg-out';
+      fila.innerHTML =
+        '<div class="msg-bubble">' +
+        '<div class="msg-meta">' + hora + ' · Pro_Gamer</div>' +
+        '<p></p>' +
+        '</div>';
+      // El texto lo metemos con textContent (no innerHTML) para que,
+      // si alguien escribe algo con < o >, no se interprete como HTML.
+      fila.querySelector('p').textContent = texto;
+
+      contenedorChat.appendChild(fila);
+      inputMensaje.value = '';
+
+      // Bajamos el scroll del chat para que el mensaje nuevo quede visible
+      contenedorChat.scrollTop = contenedorChat.scrollHeight;
+    });
+  }
+
 });
