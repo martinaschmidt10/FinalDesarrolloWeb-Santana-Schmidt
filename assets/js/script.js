@@ -312,7 +312,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // Armamos la hora actual en formato HH:MM
       var ahora = new Date();
       var hora = ahora.getHours().toString().padStart(2, '0') + ':' +
-        ahora.getMinutes().toString().padStart(2, '0');
+                 ahora.getMinutes().toString().padStart(2, '0');
 
       // Creamos el HTML del mensaje nuevo (igual estructura que los que
       // ya están escritos a mano en el HTML)
@@ -320,8 +320,8 @@ document.addEventListener('DOMContentLoaded', function () {
       fila.className = 'msg-row msg-out';
       fila.innerHTML =
         '<div class="msg-bubble">' +
-        '<div class="msg-meta">' + hora + ' · Pro_Gamer</div>' +
-        '<p></p>' +
+          '<div class="msg-meta">' + hora + ' · Pro_Gamer</div>' +
+          '<p></p>' +
         '</div>';
       // El texto lo metemos con textContent (no innerHTML) para que,
       // si alguien escribe algo con < o >, no se interprete como HTML.
@@ -332,6 +332,140 @@ document.addEventListener('DOMContentLoaded', function () {
 
       // Bajamos el scroll del chat para que el mensaje nuevo quede visible
       contenedorChat.scrollTop = contenedorChat.scrollHeight;
+    });
+  }
+
+
+  /* -----------------------------------------------------------
+     9. MENÚ DESPLEGABLE DEL AVATAR (My Profile / Log Out)
+  ----------------------------------------------------------- */
+  var toggleMenuPerfil = document.getElementById('profileMenuToggle');
+  var menuPerfil = document.getElementById('profileDropdown');
+
+  if (toggleMenuPerfil && menuPerfil) {
+    toggleMenuPerfil.addEventListener('click', function (evento) {
+      // Frenamos la propagación para que el listener de "click afuera"
+      // de acá abajo no se dispare en el mismo click que lo abre.
+      evento.stopPropagation();
+      var abierto = menuPerfil.classList.toggle('show');
+      toggleMenuPerfil.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+    });
+
+    document.addEventListener('click', function (evento) {
+      if (!menuPerfil.contains(evento.target) && evento.target !== toggleMenuPerfil) {
+        menuPerfil.classList.remove('show');
+        toggleMenuPerfil.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    var botonLogout = document.getElementById('logoutBtn');
+    if (botonLogout) {
+      botonLogout.addEventListener('click', function () {
+        window.location.href = 'login.html';
+      });
+    }
+  }
+
+
+  /* -----------------------------------------------------------
+     10. NOTIFICACIÓN "INVITATION SENT" al tocar Invite to Squad
+     Buscamos por texto en vez de por clase, así no tuvimos que
+     agregarle un atributo nuevo a cada botón de cada página.
+  ----------------------------------------------------------- */
+  document.querySelectorAll('button, a').forEach(function (el) {
+    if (el.textContent.trim() === 'Invite to Squad') {
+      el.addEventListener('click', function () {
+        mostrarToast('Invitation Sent');
+      });
+    }
+  });
+
+  function mostrarToast(texto) {
+    var contenedor = document.getElementById('toastContainer');
+    if (!contenedor) {
+      contenedor = document.createElement('div');
+      contenedor.id = 'toastContainer';
+      contenedor.className = 'toast-container';
+      document.body.appendChild(contenedor);
+    }
+
+    var toast = document.createElement('div');
+    toast.className = 'toast-notif';
+
+    var icono = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    icono.setAttribute('viewBox', '0 0 24 24');
+    icono.setAttribute('fill', 'none');
+    icono.setAttribute('stroke', 'currentColor');
+    icono.setAttribute('stroke-width', '2');
+    icono.innerHTML = '<path d="M4 4h16v12H7l-3 3z"/>';
+
+    var span = document.createElement('span');
+    span.textContent = texto; // textContent, no innerHTML: así no corremos riesgo
+                               // de inyectar HTML si este texto cambiara a algo dinámico
+
+    toast.appendChild(icono);
+    toast.appendChild(span);
+    contenedor.appendChild(toast);
+
+    // Frame extra antes de agregar "show" para que la transición de
+    // entrada (opacity + translateY) se note y no aparezca de golpe.
+    requestAnimationFrame(function () {
+      toast.classList.add('show');
+    });
+
+    setTimeout(function () {
+      toast.classList.remove('show');
+      setTimeout(function () { toast.remove(); }, 300);
+    }, 3000);
+  }
+
+
+  /* -----------------------------------------------------------
+     11. TOGGLES MULTI-SELECCIÓN (Playstyle, página Edit Profile)
+     A diferencia del toggle-group de Squads, acá cada botón se
+     prende/apaga de forma independiente (no es "uno a la vez").
+  ----------------------------------------------------------- */
+  document.querySelectorAll('.toggle-group-multi .toggle-btn').forEach(function (boton) {
+    boton.addEventListener('click', function () {
+      boton.classList.toggle('active');
+    });
+  });
+
+
+  /* -----------------------------------------------------------
+     12. GUARDAR / CANCELAR CAMBIOS (página Edit Profile)
+     Hay dos botones que guardan (el de arriba del todo y el de
+     abajo del formulario), así que separamos la acción en su
+     propia función para no repetir código.
+  ----------------------------------------------------------- */
+  var formPerfil = document.getElementById('formPerfil');
+  var feedbackPerfil = document.getElementById('perfilFeedback');
+  var btnGuardarArriba = document.getElementById('btnGuardarPerfil');
+  var btnCancelarPerfil = document.getElementById('btnCancelarCambios');
+
+  function guardarPerfil() {
+    mostrarFeedback(feedbackPerfil, 'success', '✓ Profile updated successfully.');
+  }
+
+  if (formPerfil) {
+    formPerfil.addEventListener('submit', function (evento) {
+      evento.preventDefault(); // frontend-only: no hay backend que reciba esto todavía
+      guardarPerfil();
+    });
+  }
+  if (btnGuardarArriba) {
+    btnGuardarArriba.addEventListener('click', guardarPerfil);
+  }
+  if (btnCancelarPerfil && formPerfil) {
+    btnCancelarPerfil.addEventListener('click', function () {
+      formPerfil.reset();
+      // form.reset() no toca los .toggle-btn porque no son inputs
+      // reales, así que los volvemos a mano a como arrancaron
+      // (los primeros 3 activos, "Leader" no).
+      document.querySelectorAll('.toggle-group-multi .toggle-btn').forEach(function (b, i) {
+        b.classList.toggle('active', i < 3);
+      });
+      if (feedbackPerfil) feedbackPerfil.classList.remove('show');
     });
   }
 

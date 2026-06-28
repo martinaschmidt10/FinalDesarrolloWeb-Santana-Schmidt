@@ -31,7 +31,20 @@
           <path d="M13.7 21a2 2 0 0 1-3.4 0"/>
         </svg>
       </button>
-      <a href="edit-profile.html" class="avatar-sm text-decoration-none" aria-label="Mi perfil">MS</a>
+      <div class="profile-menu">
+        <button type="button" class="avatar-sm" id="profileMenuToggle" aria-haspopup="true" aria-expanded="false" aria-label="Abrir menu de perfil">MS</button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <a href="edit-profile.html" class="profile-dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+            My Profile
+          </a>
+          <div class="profile-dropdown-divider"></div>
+          <button type="button" class="profile-dropdown-item" id="logoutBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v9"/><path d="M18 7a8 8 0 1 1-12 0"/></svg>
+            Log Out
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
