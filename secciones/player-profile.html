@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Player Profile — TeamUP!</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Anybody:wght@600;800&family=Inter:wght@400;500&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+  <!-- ===================== HEADER DE LA APP (compartido) ===================== -->
+  <header class="app-header">
+    <a href="../index.html" class="logo text-decoration-none">TeamUP<span class="text-accent">!</span></a>
+
+    <div class="app-search">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+      </svg>
+      <input type="text" placeholder="Find squads or players...">
+    </div>
+
+    <div class="app-header-actions">
+      <button class="icon-btn" aria-label="Notificaciones">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8a6 6 0 1 0-12 0c0 4-2 5-2 5h16s-2-1-2-5"/>
+          <path d="M13.7 21a2 2 0 0 1-3.4 0"/>
+        </svg>
+      </button>
+      <div class="profile-menu">
+        <button type="button" class="avatar-sm" id="profileMenuToggle" aria-haspopup="true" aria-expanded="false" aria-label="Abrir menu de perfil">MS</button>
+        <div class="profile-dropdown" id="profileDropdown">
+          <a href="edit-profile.html" class="profile-dropdown-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+            My Profile
+          </a>
+          <div class="profile-dropdown-divider"></div>
+          <button type="button" class="profile-dropdown-item" id="logoutBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v9"/><path d="M18 7a8 8 0 1 1-12 0"/></svg>
+            Log Out
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="app-shell">
+
+    <!-- ===================== SIDEBAR (compartido) =====================
+         Marcamos "Matchmaking" como origen típico de esta pantalla.
+         (Simplificación: en este prototipo se llega a este mismo
+         perfil estático desde cualquier card de jugador, sea de
+         Dashboard o de Matchmaking). -->
+    <aside class="app-sidebar">
+      <nav aria-label="Navegación de la app">
+        <ul class="sidebar-nav">
+          <li>
+            <a href="dashboard.html" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+                <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="matchmaking.html" class="sidebar-link active">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 12h4M8 10v4M15 11h.01M18 13h.01"/>
+                <path d="M5 8h14a2 2 0 0 1 2 2.5l-1.2 6A2 2 0 0 1 17.8 18H17l-2-2H9l-2 2h-.8a2 2 0 0 1-1.97-1.5l-1.2-6A2 2 0 0 1 5 8z"/>
+              </svg>
+              Matchmaking
+            </a>
+          </li>
+          <li>
+            <a href="squads.html" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/>
+                <path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6M14 14.5c2.8.3 5 2.5 5 5.5"/>
+              </svg>
+              Squads
+            </a>
+          </li>
+          <li>
+            <a href="messages.html" class="sidebar-link">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+              Messages
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- ===================== CONTENIDO: PLAYER PROFILE ===================== -->
+    <main class="app-main">
+
+      <!-- Hero del jugador -->
+      <article class="profile-hero">
+        <div class="profile-hero-photo">KZ</div>
+
+        <div class="profile-hero-info">
+          <h1>Kaizen_Zero</h1>
+          <span class="tier-badge">Elite Tier</span>
+          <p class="profile-hero-role">Strategic Support | Front-line Infiltrator</p>
+
+          <div class="mini-stat-row">
+            <div class="mini-stat-item">
+              <span class="label">Reputation</span>
+              <span class="value">4.9 ★</span>
+            </div>
+            <div class="mini-stat-item">
+              <span class="label">Matches Won</span>
+              <span class="value">1,240</span>
+            </div>
+            <div class="mini-stat-item">
+              <span class="label">Win Rate</span>
+              <span class="value">68%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="profile-hero-actions">
+          <button type="button" class="btn btn-accent">Invite to Squad</button>
+          <button type="button" class="icon-btn" style="border:1px solid var(--color-border);" aria-label="Enviar mensaje">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16v12H7l-3 3z"/>
+            </svg>
+          </button>
+        </div>
+      </article>
+
+      <!-- About Me + Roles -->
+      <div class="profile-row-2col">
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/>
+            </svg>
+            <h2 class="panel-title" style="font-size:0.9rem;">About Me</h2>
+          </div>
+          <p style="font-size:0.85rem; color: var(--color-text-muted);">
+            Competitive support player with over 5 years of experience in high-stakes
+            FPS and MOBA tournaments. I specialize in tactical communication and utility
+            management. Seeking a squad that values consistency and long-term strategy
+            over individual glory. Always down for late-night grind sessions and
+            tournament practice.
+          </p>
+          <div class="d-flex gap-2 flex-wrap">
+            <span class="tag-pill">Communicative</span>
+            <span class="tag-pill">Shot-Caller</span>
+            <span class="tag-pill">Chill Vibes</span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2l3 6 6 .9-4.5 4.3 1 6.3-5.5-3-5.5 3 1-6.3L3 8.9 9 8z"/>
+            </svg>
+            <h2 class="panel-title" style="font-size:0.9rem;">Roles</h2>
+          </div>
+
+          <div class="progress-row">
+            <div class="progress-row-top">
+              <span>Main: Support</span>
+              <span class="progress-value">98%</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:98%;"></div></div>
+          </div>
+          <div class="progress-row">
+            <div class="progress-row-top">
+              <span>Flex: Tank</span>
+              <span class="progress-value">48%</span>
+            </div>
+            <div class="progress-track"><div class="progress-fill" style="width:48%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Play Style + Weekly Availability -->
+      <div class="profile-row-2col">
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <h2 class="panel-title" style="font-size:0.9rem;">Play Style</h2>
+          </div>
+          <div class="playstyle-grid">
+            <div class="playstyle-box"><span class="label">Aggression</span><span class="value">Tactical</span></div>
+            <div class="playstyle-box"><span class="label">Tempo</span><span class="value">Steady</span></div>
+            <div class="playstyle-box"><span class="label">Teamwork</span><span class="value">Coordinated</span></div>
+            <div class="playstyle-box"><span class="label">Mechanics</span><span class="value">Precision</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/>
+            </svg>
+            <h2 class="panel-title" style="font-size:0.9rem;">Weekly Availability</h2>
+          </div>
+          <div class="availability-chart">
+            <div class="avail-bar-col"><div class="avail-bar" style="height:55%;"></div><span class="day-label">Mon</span></div>
+            <div class="avail-bar-col"><div class="avail-bar" style="height:80%;"></div><span class="day-label">Tue</span></div>
+            <div class="avail-bar-col"><div class="avail-bar" style="height:40%;"></div><span class="day-label">Wed</span></div>
+            <div class="avail-bar-col"><div class="avail-bar" style="height:90%;"></div><span class="day-label">Thu</span></div>
+            <div class="avail-bar-col"><div class="avail-bar" style="height:95%;"></div><span class="day-label">Fri</span></div>
+            <div class="avail-bar-col"><div class="avail-bar" style="height:25%;"></div><span class="day-label">Sat</span></div>
+            <div class="avail-bar-col"><div class="avail-bar" style="height:70%;"></div><span class="day-label">Sun</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Reviews -->
+      <div class="panel">
+        <div class="panel-header" style="justify-content: space-between;">
+          <div class="d-flex align-items-center gap-2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            <h2 class="panel-title" style="font-size:0.9rem;">Recent Reviews</h2>
+          </div>
+          <a href="#" class="form-check-game" style="font-size:0.7rem;">View All Reviews</a>
+        </div>
+
+        <div class="reviews-grid">
+          <div class="review-card">
+            <div class="review-card-head">
+              <div class="member-avatar">VS</div>
+              <div>
+                <span class="reviewer-name">Viper_Striker</span>
+                <span class="reviewer-stars">★★★★★</span>
+              </div>
+            </div>
+            <p>"Best support I've ever played with. The timing on those shields was insane. 10/10 would duo again."</p>
+          </div>
+          <div class="review-card">
+            <div class="review-card-head">
+              <div class="member-avatar">NG</div>
+              <div>
+                <span class="reviewer-name">Nebula_Ghost</span>
+                <span class="reviewer-stars">★★★★★</span>
+              </div>
+            </div>
+            <p>"Very chill teammate. Great at communicating during the mid-game chaos. Really knows their utility."</p>
+          </div>
+          <div class="review-card">
+            <div class="review-card-head">
+              <div class="member-avatar">IM</div>
+              <div>
+                <span class="reviewer-name">Iron_Maiden_99</span>
+                <span class="reviewer-stars">★★★★★</span>
+              </div>
+            </div>
+            <p>"Helped our team climb 2 divisions in one weekend. Solid leadership skills and zero toxicity."</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- ===================== FOOTER (compartido) ===================== -->
+  <footer class="site-footer">
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+      <p class="mb-0">© <span id="anioActual"></span> TeamUP! Gaming. Todos los derechos reservados.</p>
+      <ul class="footer-links list-unstyled d-flex gap-4 mb-0">
+        <li><a href="terminos.html">Terms of Service</a></li>
+        <li><a href="privacidad.html">Privacy Policy</a></li>
+        <li><a href="soporte.html">Support</a></li>
+        <li><a href="cookies.html">Cookie Settings</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/script.js"></script>
+</body>
+</html>

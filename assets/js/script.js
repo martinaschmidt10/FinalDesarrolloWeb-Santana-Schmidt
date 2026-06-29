@@ -469,4 +469,18 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+
+  /* -----------------------------------------------------------
+     13. IR AL PERFIL DETALLADO al tocar una card de jugador
+     (Dashboard y Matchmaking). Si el click vino de un botón de
+     adentro (Invite to Squad, mensaje), NO navegamos — dejamos
+     que ese botón haga lo suyo (ej. mostrar el toast).
+  ----------------------------------------------------------- */
+  document.querySelectorAll('.match-card').forEach(function (card) {
+    card.addEventListener('click', function (evento) {
+      if (evento.target.closest('button')) return;
+      window.location.href = 'player-profile.html';
+    });
+  });
+
 });
